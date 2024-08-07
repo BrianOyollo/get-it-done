@@ -6,10 +6,11 @@ from ninja.security import HttpBearer
 from ninja.errors import HttpError
 from ninja_jwt.controller import NinjaJWTDefaultController
 from ninja_jwt.authentication import JWTAuth
-from ninja_extra import NinjaExtraAPI
+from ninja_extra import NinjaExtraAPI, route, api_controller
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import get_object_or_404
 from django.db.utils import IntegrityError
+from core.routers import statuses
 
 
 
@@ -28,3 +29,4 @@ def root(request):
     return {'message': 'Welcome to Get-It-Done Kenya API'}
 
 
+api.add_router('/statuses/', statuses.router)
