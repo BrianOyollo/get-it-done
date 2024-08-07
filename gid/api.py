@@ -23,6 +23,6 @@ api.register_controllers(NinjaJWTDefaultController)
 
 @api.get('/')
 def root(request):
-    return {'message': 'Welcome to Get It Done Kenya API'}
+    return {'message': 'Welcome to Get-It-Done Kenya API'}
 
 
