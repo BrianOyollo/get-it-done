@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'core.apps.CoreConfig',
 
+    "ninja",
     "ninja_extra",
     "ninja_jwt",
     "corsheaders",
