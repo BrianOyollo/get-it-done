@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from ninja import Router, ModelSchema, Schema
 from ninja_jwt.authentication import JWTAuth
 from ninja.errors import HttpError
@@ -27,7 +28,7 @@ class EditReportStatusSchema(Schema):
 # =============== ROUTES ===============================
 
 @router.get('/', response=List[ReportStatusSchema])
-def get_report_statuses(request):
+def report_statuses(request):
     try:
         report_statuses = ReportStatus.objects.all()
         return report_statuses
@@ -48,7 +49,7 @@ def new_report_status(request, payload:NewReportStatusSchema):
 
 
 @router.get('/{status_id}', response=ReportStatusSchema)
-def get_report_status(request, status_id:int):
+def report_status(request, status_id:int):
     try:
         report_status = ReportStatus.objects.get(pk=status_id)
         return report_status
@@ -82,6 +83,6 @@ def delete_report_status(request, status_id:int):
     try:
         report_status = get_object_or_404(ReportStatus, id=status_id)
         report_status.delete()
-        return {"message": "Report status deleted successfully."}
+        return HttpResponse("Status deleted", status=201)
     except Exception as e:
         raise HttpError(500, "Error deleting report status")
