@@ -46,19 +46,6 @@ class Subcategory(models.Model):
         return self.subcategory
     
 
-class Moderator(models.Model):
-    location = models.CharField(max_length=100, blank=False, null=False)
-    subcategory = models.OneToOneField(Category, on_delete=models.SET_NULL, related_name='moderator', null=True, blank=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='moderator')
-
-    class Meta:
-        verbose_name_plural = "Moderators"
-
-    def __str__(self):
-        return self.user
-
-
 class Report(models.Model):
     description = models.TextField(max_length=500, blank=False, null=False)
     location = models.CharField(max_length=150, null=False, blank=False)
@@ -81,6 +68,34 @@ class Report(models.Model):
     def __str__(self):
         return self.description[:50]
     
+
+class ModeratorApplication(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='applications')
+    first_name = models.CharField(max_length=25, null=False, blank=False, default='John')
+    last_name = models.CharField(max_length=25, null=False, blank=False, default='Doe')
+    location = models.CharField(max_length=150, blank=False, null=False)
+    subcategory = models.ForeignKey(Subcategory, on_delete=models.SET_NULL, null=True, blank=True)
+    status = models.CharField(max_length=50, choices=[('Pending', 'Pending'), ('Approved', 'Approved'), ('Rejected', 'Rejected')], default='Pending')
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name_plural = "Moderator Applications"
+        ordering = ('-created_at',)
+
+    def __str__(self):
+        return self.user.username
+
+class Moderator(models.Model):
+    location = models.CharField(max_length=100, blank=False, null=False)
+    subcategory = models.ForeignKey(Subcategory, on_delete=models.SET_NULL, related_name='moderator', null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='moderator')
+
+    class Meta:
+        verbose_name_plural = "Moderators"
+
+    def __str__(self):
+        return self.user.username
 
 class ModeratorAction(models.Model):
     moderator = models.ForeignKey(Moderator, on_delete=models.CASCADE, related_name='actions')
