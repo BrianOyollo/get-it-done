@@ -114,7 +114,7 @@ def new_moderator_application(request, payload:NewModeratorApplicationSchema):
         raise HttpError(403, "Permission denied")
     
     if request.user.is_moderator:
-        raise HttpError(403, "Permission denied")
+        raise HttpError(403, "You are already a moderator")
     
     try:
         user = User.objects.get(pk=payload.user_id)
@@ -143,7 +143,7 @@ def moderator_application(request, application_id:int):
         if request.user == application.user or request.user.is_superuser:
             return application
         else:
-            raise HttpError(403, "Permission denied")
+            return HttpResponse("You do not have permission to view this application", status=403)
 
     except ModeratorApplication.DoesNotExist:
         raise HttpError(404, "Application does not exist")

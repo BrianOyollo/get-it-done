@@ -10,7 +10,7 @@ from ninja_extra import NinjaExtraAPI, route, api_controller
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import get_object_or_404
 from django.db.utils import IntegrityError
-from core.routers import moderators, statuses, categories, subcategories
+from core.routers import moderators, statuses, categories, subcategories,reports
 
 
 
@@ -33,3 +33,4 @@ api.add_router('/statuses/', statuses.router)
 api.add_router('/categories/', categories.router)
 api.add_router('/subcategories/', subcategories.router)
 api.add_router('/moderators/', moderators.router)
+api.add_router('/reports/', reports.router)

@@ -49,13 +49,14 @@ class Subcategory(models.Model):
 class Report(models.Model):
     description = models.TextField(max_length=500, blank=False, null=False)
     location = models.CharField(max_length=150, null=False, blank=False)
-    latitude = models.DecimalField(max_digits=9, decimal_places=7, blank=False, null=False)
-    longitude = models.DecimalField(max_digits=9, decimal_places=7, blank=False, null=False)
+    latitude = models.DecimalField(max_digits=9, decimal_places=7, blank=True, null=True)
+    longitude = models.DecimalField(max_digits=9, decimal_places=7, blank=True, null=True)
     subcategory = models.ForeignKey(Subcategory, on_delete=models.SET_NULL, null=True, blank=True, related_name='reports')
     status = models.ForeignKey(ReportStatus, on_delete=models.SET_NULL, null=True, blank=True, related_name='reports')
     responsible_party = models.CharField(max_length=50, null=True, blank=True)
     responsible_party_contact = models.CharField(max_length=100, null=True, blank=True)
-    reporter = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='reports')
+    # reporter = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='reports')
+    reporter_name = models.CharField(max_length=50, null=True, blank=True)
     reporter_contact = models.CharField(max_length=100, null=True, blank=True)
     reporter_confirm_fix_time = models.DateTimeField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -108,8 +109,6 @@ class ModeratorAction(models.Model):
         verbose_name_plural = "Moderator Actions"
         ordering = ('-created_at',)
 
-    def __str__(self):
-        return self.moderator
 
 
 class ReportFile(models.Model):

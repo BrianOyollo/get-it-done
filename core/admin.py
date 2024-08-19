@@ -24,7 +24,7 @@ class ModeratorAdmin(admin.ModelAdmin):
 
 class ReportAdmin(admin.ModelAdmin):
     model = Report
-    list_display = ('id','subcategory', 'description', 'location', 'latitude', 'longitude',)
+    list_display = ('id','subcategory', 'description', 'location', 'latitude', 'longitude','status',)
 
 class ModeratorActionAdmin(admin.ModelAdmin):
     model = ModeratorAction
