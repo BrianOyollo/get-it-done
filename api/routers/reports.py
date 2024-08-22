@@ -54,10 +54,6 @@ class NewReportSchema(Schema):
 class ReportStatusChangeSchema(Schema):
     action_description: str|None=None
 
-class FormTrials(Schema):
-    first_name:str
-    surname:str
-    email:str
 # ======================================= ROUTES ===================================
 @router.get("/", response=List[ReportResponseSchema])
 def reports(request):
@@ -92,15 +88,6 @@ def new_report(request, payload:NewReportSchema):
         raise HttpError(500, f"Subcategory with id {id} does not exist")
     except Exception as e:
         raise HttpError(500, "Error submit report")
-
-@router.post("/upload-files")
-def fileupload(request, user:FormTrials, file: UploadedFile = File(...)):
-    user = user.model_dump()
-    return {
-        'user':user,
-        'filename':file.name,
-        'size':file.size,
-    } 
 
 @router.post("/{report_id}", response=ReportResponseSchema)
 def report(request, report_id):

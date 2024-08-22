@@ -2,6 +2,5 @@
 env
 db.sqlite3
 __pycache__
-gid/settings/local.py
 dummy_users.txt
-gid/settings.py
+templates
