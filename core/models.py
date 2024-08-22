@@ -86,6 +86,7 @@ class ModeratorApplication(models.Model):
     def __str__(self):
         return self.user.username
 
+
 class Moderator(models.Model):
     location = models.CharField(max_length=100, blank=False, null=False)
     subcategory = models.ForeignKey(Subcategory, on_delete=models.SET_NULL, related_name='moderator', null=True, blank=True)
@@ -98,6 +99,7 @@ class Moderator(models.Model):
     def __str__(self):
         return self.user.username
 
+
 class ModeratorAction(models.Model):
     moderator = models.ForeignKey(Moderator, on_delete=models.CASCADE, related_name='actions')
     report = models.ForeignKey(Report, on_delete=models.SET_NULL, null=True,  related_name='actions')
@@ -108,7 +110,6 @@ class ModeratorAction(models.Model):
     class Meta:
         verbose_name_plural = "Moderator Actions"
         ordering = ('-created_at',)
-
 
 
 class ReportFile(models.Model):
