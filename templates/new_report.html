@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+{% load static %}
+{% load partials %}
+{% load widget_tweaks %}
+
+
+
+
+{% partialdef NewReport-partial %}
+    {% block main %}
+        <div class="new-report-page d-flex justify-content-center" id="new-report-page">
+            <form class="w-75 bg-white p-3" enctype="multipart/form-data"
+                hx-post="{% url "new-report" %}" hx-swap="innerHTML" hx-target="#main" >
+
+                {% csrf_token %}
+                <legend class="text-center border-bottom">New Report </legend>
+                <div class="accordion" id="newReportAccordion">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="reportDetailsHeading">
+                            <button class="accordion-button fw-bold text-danger" type="button" data-bs-toggle="collapse" data-bs-target="#reportDetailsCollapase" aria-expanded="true" aria-controls="reportDetailsCollapase">
+                                Report Details & Location
+                            </button>
+                        </h2>
+                        <div id="reportDetailsCollapase" class="accordion-collapse collapse show" aria-labelledby="reportDetailsHeading" data-bs-parent="#newReportAccordion">
+                            <div class="accordion-body">
+                                <div class="mb-4">
+                                    <div class="form-label">Report Subcategory:</div>
+                                    {% render_field form.subcategory %}
+                                </div>
+
+                                <div class="mb-4">
+                                    <div class="form-label">Report Description:</div>
+                                    {% render_field form.description %}
+                                </div>
+                                <div class="mb-4">
+                                    <div class="form-label">Location:</div>
+                                    {% render_field form.location %}
+                                </div>
+
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="liveLocationSwitch" onclick="getLocation()">
+                                    <label class="form-check-label" for="liveLocationSwitch">Add live location</label>
+
+                                    {{ form.latitude }}
+                                    {{ form.longitude }}
+                                    <script>
+                                        var coordinates = document.getElementById("coordinates");
+                                        var latitudeInput = document.querySelector('input[name="latitude"]');
+                                        var longitudeInput = document.querySelector('input[name="longitude"]');
+                                        
+                                        function getLocation() {
+                                          if (navigator.geolocation) {
+                                            navigator.geolocation.getCurrentPosition(showPosition);
+                                          } else { 
+                                            coordinates.innerHTML = "Geolocation is not supported by this browser.";
+                                          }
+                                        }
+                                        
+                                        function showPosition(position) {
+                                            coordinates.innerHTML = "(" + position.coords.latitude + "," + position.coords.longitude+ ")";
+                                            latitudeInput.value = position.coords.latitude;
+                                            longitudeInput.value = position.coords.longitude;
+                                            console.log("position.coords.latitude, position.coords.longitude");
+                                        }
+                                    </script>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="reportFilesHeading">
+                            <button class="accordion-button collapsed fw-bold text-danger" type="button" data-bs-toggle="collapse" data-bs-target="#reportFilesCollapse" aria-expanded="true" aria-controls="reportFilesCollapse">
+                                Report Files/Images/Video
+                            </button>
+                        </h2>
+                        <div id="reportFilesCollapse" class="accordion-collapse collapse" aria-labelledby="reportFilesHeading" data-bs-parent="#newReportAccordion">
+                            <div class="accordion-body">
+                                <div class="mb-4">
+                                    <div class="form-label">Files:</div>
+                                    {% render_field form.files|attr:"multiple" %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="responsiblePartyHeading">
+                            <button class="accordion-button collapsed fw-bold text-danger" type="button" data-bs-toggle="collapse" data-bs-target="#responsiblePartyCollapse" aria-expanded="false" aria-controls="responsiblePartyCollapse">
+                                Responsible Party(optional)
+                            </button>
+                        </h2>
+                        <div id="responsiblePartyCollapse" class="accordion-collapse collapse" aria-labelledby="responsiblePartyHeading" data-bs-parent="#newReportAccordion">
+                            <div class="accordion-body">
+                                <div class="mb-3">
+                                    <div class="form-label">Responsible Party:</div>
+                                    {% render_field form.responsible_party %}
+                                </div>
+                                <div class="mb-3">
+                                    <div class="form-label">Responsible Party Contacts:</div>
+                                    {% render_field form.responsible_party_contact %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="reporterDetailsHeading">
+                            <button class="accordion-button collapsed fw-bold text-danger" type="button" data-bs-toggle="collapse" data-bs-target="#reporterDetailsCollapse" aria-expanded="false" aria-controls="reporterDetailsCollapse">
+                                Your Details(optional)
+                            </button>
+                        </h2>
+                        <div id="reporterDetailsCollapse" class="accordion-collapse collapse" aria-labelledby="reporterDetailsHeading" data-bs-parent="#newReportAccordion">
+                            <div class="accordion-body">
+                                <div class="mb-4">
+                                    <div class="form-label">Your Name:</div>
+                                    {% render_field form.reporter_name %}
+                                </div>
+                                <div class="mb-4">
+                                    <div class="form-label">Your Contacts:</div>
+                                    {% render_field form.reporter_contact %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center mt-3">
+                    <button class="btn btn-primary w-50">Submit</button>
+                </div>
+            </form>
+        </div>
+    {% endblock main %}
+{% endpartialdef %}

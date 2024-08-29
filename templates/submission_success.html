@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load static %}
+{% load partials %}
+{% load widget_tweaks %}
+
+{% partialdef ReportSubmissionSuccess-partial %}
+    {% block main %}
+        <div class="submission-success d-flex justify-content-center" id="submissionSuccess">
+            <div class="card bg-success-subtle">
+                <div class="card-body">
+                    <div class="card-title fw-bold fs-4 border-success border-bottom text-center text-success-emphasis">Report Submitted Successfully</div>
+                    <p class="text-center">Thank you for contribution. You've made your country proud!</p>
+                    <p>If you included the responsible party... allow Kenyans to 'greet' them. Wink!</p>
+
+
+                    <div class="d-flex justify-content-center">
+                        <a href="#" hx-get="{% url "home" %}" hx-target="#main" hx-swap="innerHTML" hx-push-url="true"><small>back to reports</small></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endblock main %}
+{% endpartialdef %}

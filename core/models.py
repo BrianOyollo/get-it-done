@@ -1,10 +1,27 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+import secrets
 
 
 User = get_user_model()
 # Create your models here.
 
+class APIKey(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="api_key")
+    key = models.CharField(max_length=50, unique=True, null=False, blank=False)
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def save(self, *args, **kwargs):
+        if not self.key:
+            self.key = self.generate_key()
+        super().save(*args, **kwargs)
+
+    def generate_key(self):
+        return secrets.token_urlsafe(32)
+
+    def __str__(self):
+        return self.key
 
 class ReportStatus(models.Model):
     status = models.CharField(max_length=100, null=False, blank=False)
@@ -30,6 +47,10 @@ class Category(models.Model):
 
     def __str__(self):
         return self.category
+    
+    def reports_count(self):
+        reports_count = Report.objects.filter(subcategory__category=self).all().count()
+        return reports_count
 
 
 class Subcategory(models.Model):
@@ -45,9 +66,13 @@ class Subcategory(models.Model):
     def __str__(self):
         return self.subcategory
     
+    def reports_count(self):
+        reports_count = Report.objects.filter(subcategory=self).all().count()
+        return reports_count
+    
 
 class Report(models.Model):
-    description = models.TextField(max_length=500, blank=False, null=False)
+    description = models.TextField(max_length=1000, blank=False, null=False)
     location = models.CharField(max_length=150, null=False, blank=False)
     latitude = models.DecimalField(max_digits=9, decimal_places=7, blank=True, null=True)
     longitude = models.DecimalField(max_digits=9, decimal_places=7, blank=True, null=True)

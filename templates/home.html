@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% load static %}
+{% load partials %}
+
+
+{% partialdef HomePage-partial %}
+    {% block main %}
+        <div id="homepage">
+            <div class="row">
+                <div class="col-12 col-md-9">
+                    {% if reports %}
+                        {% for report in reports %}
+                            {% include "partials.html#ReportCard-partial" with description=report.description|truncatewords:35 %}
+                        {% endfor %}
+                    {% else %}
+                        <div class="card mb-2">
+                            <div class="card-body">
+                                <h6>0 reports found</h6>
+                            </div>
+                        </div>
+                    {% endif %}
+                    
+                </div>
+                <div class="col-0 col-md-3">
+                    <div class="bg-white p-4 mb-2">
+                        <h6 class="text-center">Filter by category</h6>
+                        <ul>
+                            <li class="mb-2">
+                                <a href="#" 
+                                    hx-get="{% url "home"%}"
+                                    hx-target="#main"
+                                    hx-swap="innerHTML"
+                                    hx-push-url="true"
+                                    >All</a> ({{ all_reports_count }})
+                            </li>
+
+                            {% for category in categories %}
+                                <li class="mb-2">
+                                    <a href="#" 
+                                        hx-get="{% url "category-filter" category.id %}"
+                                        hx-target="#main"
+                                        hx-swap="innerHTML"
+                                        hx-push-url="true"
+                                        >{{ category.category }}</a> ({{ category.reports_count }})
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="bg-white p-4">
+                        <h6 class="text-center">Filter by subcategory</h6>
+                        <ul>
+                            <li class="mb-2">
+                                <a href="#" 
+                                    hx-get="{% url "home"%}"
+                                    hx-target="#main"
+                                    hx-swap="innerHTML"
+                                    hx-push-url="true"
+                                    >All</a> ({{ all_reports_count }})
+                            </li>
+
+                            {% for subcategory in subcategories %}
+                                <li class="mb-2">
+                                    <a href="#" 
+                                        hx-get="{% url "subcategory-filter" subcategory.id %}"
+                                        hx-target="#main"
+                                        hx-swap="innerHTML"
+                                        hx-push-url="true"
+                                        >{{ subcategory.subcategory }}</a> ({{ subcategory.reports_count }})
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    {% endblock main %}
+{% endpartialdef %}

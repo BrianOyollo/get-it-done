@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load static %}
+{% load partials %}
+{% load widget_tweaks %}
+
+
+
+
+{% partialdef ReportDetails-partial %}
+    {% block main %}
+        <div id="report-details">
+            {% include "partials.html#ReportCard-partial" with description=report.description %}
+        </div>
+    {% endblock main %}
+{% endpartialdef %}

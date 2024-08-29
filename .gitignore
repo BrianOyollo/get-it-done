@@ -3,4 +3,3 @@ env
 db.sqlite3
 __pycache__
 dummy_users.txt
-templates
