@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.db import transaction
 from django.shortcuts import get_object_or_404
+import time
 
 from .models import Report, ReportStatus, ReportFile, Subcategory, Category
 from .forms import NewReportForm
@@ -13,6 +14,7 @@ def HomeView(request):
     subcategories = Subcategory.objects.all()
     categories = Category.objects.all()
     if request.htmx:
+        # time.sleep(10)
         return render(request, 'home.html#HomePage-partial',{
             'reports':reports,
             'all_reports_count': reports.count(),

@@ -40,6 +40,7 @@
                                 <div class="form-check form-switch">
                                     <input class="form-check-input" type="checkbox" id="liveLocationSwitch" onclick="getLocation()">
                                     <label class="form-check-label" for="liveLocationSwitch">Add live location</label>
+                                    <div id="coordinates"></div>
 
                                     {{ form.latitude }}
                                     {{ form.longitude }}
@@ -47,20 +48,40 @@
                                         var coordinates = document.getElementById("coordinates");
                                         var latitudeInput = document.querySelector('input[name="latitude"]');
                                         var longitudeInput = document.querySelector('input[name="longitude"]');
-                                        
+                                    
                                         function getLocation() {
-                                          if (navigator.geolocation) {
-                                            navigator.geolocation.getCurrentPosition(showPosition);
-                                          } else { 
-                                            coordinates.innerHTML = "Geolocation is not supported by this browser.";
-                                          }
+                                            if (navigator.geolocation) {
+                                                navigator.geolocation.getCurrentPosition(showPosition, showError);
+                                            } else {
+                                                coordinates.innerHTML = "Geolocation is not supported by this browser.";
+                                            }
                                         }
-                                        
+                                    
                                         function showPosition(position) {
-                                            coordinates.innerHTML = "(" + position.coords.latitude + "," + position.coords.longitude+ ")";
-                                            latitudeInput.value = position.coords.latitude;
-                                            longitudeInput.value = position.coords.longitude;
-                                            console.log("position.coords.latitude, position.coords.longitude");
+                                            var latitude = position.coords.latitude;
+                                            var longitude = position.coords.longitude;
+                                    
+                                            latitudeInput.value = latitude;
+                                            longitudeInput.value = longitude;
+                                    
+                                            coordinates.innerHTML = "Coordinates: (" + latitude + ", " + longitude + ")";
+                                        }
+                                    
+                                        function showError(error) {
+                                            switch(error.code) {
+                                                case error.PERMISSION_DENIED:
+                                                    console.log("User denied the request for Geolocation.");
+                                                    break;
+                                                case error.POSITION_UNAVAILABLE:
+                                                    console.log("Location information is unavailable.");
+                                                    break;
+                                                case error.TIMEOUT:
+                                                    console.log("The request to get user location timed out.");
+                                                    break;
+                                                case error.UNKNOWN_ERROR:
+                                                    console.log("An unknown error occurred.");
+                                                    break;
+                                            }
                                         }
                                     </script>
                                 </div>
@@ -128,4 +149,11 @@
             </form>
         </div>
     {% endblock main %}
+
+    {% block scripts %}
+        <script>
+            $("#id_subcategory").select2();
+        </script>
+    {% endblock scripts %}
+
 {% endpartialdef %}
