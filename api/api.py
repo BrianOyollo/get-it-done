@@ -29,8 +29,8 @@ def root(request):
     return {'message': 'Welcome to Get-It-Done Kenya API'}
 
 
-api.add_router('/statuses/', statuses.router)
-api.add_router('/categories/', categories.router)
-api.add_router('/subcategories/', subcategories.router)
+# api.add_router('/statuses/', statuses.router)
+# api.add_router('/categories/', categories.router)
+# api.add_router('/subcategories/', subcategories.router)
 api.add_router('/moderators/', moderators.router)
 api.add_router('/reports/', reports.router)
