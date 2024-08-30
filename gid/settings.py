@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     "django_htmx",
     'widget_tweaks',
     'template_partials',
+    'admin_honeypot',
 ]
 AUTH_USER_MODEL = 'users.CustomUser'
 MIDDLEWARE = [
@@ -163,9 +164,8 @@ if DEBUG == False:
     SECURE_BROWSER_XSS_FILTER = True
     X_FRAME_OPTIONS = 'DENY'
     SECURE_SSL_REDIRECT = True
-    SECURE_HSTS_SECONDS = 3600
-    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-    SECURE_HSTS_PRELOAD = True
-    SECURE_CONTENT_TYPE_NOSNIFF = True
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
+
+
+ADMIN_HONEYPOT_EMAIL_ADMINS = True

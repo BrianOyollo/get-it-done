@@ -16,10 +16,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+import os
 from api.api import api
 
+admin_url = os.getenv('ADMIN_URL')
+
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin/', include('admin_honeypot.urls')),
+    path(f'{admin_url}/', admin.site.urls),
     path("", include('core.urls')),
     path("api/", api.urls),
     
