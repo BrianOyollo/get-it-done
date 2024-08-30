@@ -9,7 +9,7 @@
 {% partialdef NewReport-partial %}
     {% block main %}
         <div class="new-report-page d-flex justify-content-center" id="new-report-page">
-            <form class="w-75 bg-white p-3" enctype="multipart/form-data"
+            <form class="w-100 bg-white p-3" enctype="multipart/form-data"
                 hx-post="{% url "new-report" %}" hx-swap="innerHTML" hx-target="#main" >
 
                 {% csrf_token %}
@@ -26,6 +26,9 @@
                                 <div class="mb-4">
                                     <div class="form-label">Report Subcategory:</div>
                                     {% render_field form.subcategory %}
+                                    <script>
+                                        $('#id_subcategory').select2();
+                                    </script>
                                 </div>
 
                                 <div class="mb-4">
@@ -151,9 +154,7 @@
     {% endblock main %}
 
     {% block scripts %}
-        <script>
-            $("#id_subcategory").select2();
-        </script>
+        
     {% endblock scripts %}
 
 {% endpartialdef %}
