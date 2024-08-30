@@ -16,8 +16,9 @@
 - **Ninja Extra:** A set of extra utilities for Django Ninja, enhancing its capabilities.
 
 ## Usage
-- Access the API endpoints at the base URL: [https://get-it-done-jp49.onrender.com/api](https://get-it-done-jp49.onrender.com/api)
-- View API documentation at: [https://get-it-done-jp49.onrender.com/api/docs](https://get-it-done-jp49.onrender.com/api/docs)
+- Access the web app at: [https://4hp-astute-schrodinger.circumeo-apps.net](https://4hp-astute-schrodinger.circumeo-apps.net)
+- Access the API endpoints at the base URL: [https://4hp-astute-schrodinger.circumeo-apps.net/api](https://4hp-astute-schrodinger.circumeo-apps.net/api)
+- View API documentation at: [https://4hp-astute-schrodinger.circumeo-apps.net/api/docs](https://4hp-astute-schrodinger.circumeo-apps.net/api/docs)
 
 ## Installation
 1. Clone the repository:
