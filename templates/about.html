@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load static %}
+{% load partials %}
+{% load widget_tweaks %}
+
+{% partialdef AboutPage-partial %}
+    {% block main %}
+        <div class="about-page d-flex justify-content-center" id="aboutPage">
+            <div class="about-gid bg-white p-4">
+                <h6>About GET-IT-DONE KENYA</h6>
+                {% lorem 3 p random %}
+
+            </div>
+        </div>
+    {% endblock main %}
+{% endpartialdef %}
