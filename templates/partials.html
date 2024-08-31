@@ -3,6 +3,24 @@
 {% load partials %}
 
 
+
+{% partialdef ImageGallery-partial %}
+    <div class="d-flex justify-content-center">
+            <section class="row row-cols-2 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 text-center p-1 p-md-4">
+                {% for file in report.files.all %}
+                    <div class="magnific-img">
+                        <a class="image-popup-vertical-fit" href="{{ file.file.url }}">
+                            <img src="{{ file.file.url }}" alt="{{ file.file.name }}" />
+                            <i class="fa fa-search-plus" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                {% endfor %}
+            </section>
+            <div class="clear"></div>
+    
+    </div>
+{% endpartialdef %}
+
 {% partialdef ReportCard-partial %}
     <div class="card mb-2">
         <div class="card-body">
@@ -15,13 +33,8 @@
                 <small>{{ report.status }}</small>
             </div>
 
-            <div class="media-files mb-4">
-                {% if report.files.all %}
-                 {% for file in report.files.all %}
-                    <img src="{{ file.file.url }}" alt="{{ file.name }}" srcset="" class="w-25">
-                 {% endfor %}
-                
-                {% endif %}
+            <div class="media-files mb-5 d-flex">
+                {% include "partials.html#ImageGallery-partial" %}
             </div>
             <div class="location row mb-1">
                 <div class="col-12 col-sm-3">Location:</div>
@@ -40,3 +53,5 @@
         </div>
     </div>
 {% endpartialdef %}
+
+
