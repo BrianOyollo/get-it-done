@@ -26,6 +26,7 @@ django-template-partials==24.2
 django-widget-tweaks==1.5.0
 dnspython==2.6.1
 email_validator==2.2.0
+Faker==28.1.0
 folium==0.17.0
 future==1.0.0
 geocoder==1.38.1

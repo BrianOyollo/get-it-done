@@ -24,7 +24,7 @@
     <div class="card mb-2">
         <div class="card-body">
             <a class="card-title h6 text-decoration-none" href="#" hx-get="{% url "report-details"  report.id %}" hx-target="#main" hx-swap="innerHTML" hx-push-url="true">
-                {{ report.description }}
+                {{ report.description|truncatewords:35 }}
             </a>
             <div class="text-secondary mb-4">
                 <small><a class='text-secondary text-decoration-none' href="#">{{ report.subcategory }}</a> |</small>
@@ -33,16 +33,16 @@
             </div>
 
             <div class="location row mb-1">
-                <div class="col-12 col-sm-3">Location:</div>
-                <div class="col-12 col-sm-9 text-secondary">{{ report.location }}</div>
+                <div class="col-12 col-sm-4">Location:</div>
+                <div class="col-12 col-sm-8 text-secondary">{{ report.location }}</div>
             </div>
             <div class="responsible-party row mb-1">
-                <div class="col-12 col-sm-3">Responsible Party(s):</div>
-                <div class="col-12 col-sm-9 text-secondary">{{ report.responsible_party }}</div>
+                <div class="col-12 col-sm-4">Responsible Party:</div>
+                <div class="col-12 col-sm-8 text-secondary">{{ report.responsible_party }}</div>
             </div>
             <div class="responsible-party-contact row mb-3">
-                <div class="col-12 col-sm-3">Responsible Party Contacts:</div>
-                <div class="col-12 col-sm-9 text-secondary">{{ report.responsible_party_contact }}</div>
+                <div class="col-12 col-sm-4">Responsible Party Contacts:</div>
+                <div class="col-12 col-sm-8 text-secondary">{{ report.responsible_party_contact }}</div>
             </div>
 
             

@@ -4,3 +4,4 @@ db.sqlite3
 __pycache__
 dummy_users.txt
 media/report_files/*
+core/management/commands/dummy_reports.py
