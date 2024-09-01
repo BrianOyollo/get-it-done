@@ -9,7 +9,38 @@
 {% partialdef ReportDetails-partial %}
     {% block main %}
         <div id="report-details">
-            {% include "partials.html#ReportCard-partial" with description=report.description %}
+            <div class="card mb-2">
+                <div class="card-body">
+                    <a class="card-title h6 text-decoration-none" href="#" hx-get="{% url "report-details"  report.id %}" hx-target="#main" hx-swap="innerHTML" hx-push-url="true">
+                        {{ report.description }}
+                    </a>
+                    <div class="text-secondary mb-4">
+                        <small><a class='text-secondary text-decoration-none' href="#">{{ report.subcategory }}</a> |</small>
+                        <small>{{ report.created_at|date }} |</small>
+                        <small>{{ report.status }}</small>
+                    </div>
+        
+                    {% if report.files.all %}
+                        <div class="media-files mb-5 d-flex">
+                            {{ report.id|json_script:"report-id"}}
+                            {% include "partials.html#ImageGallery-partial" %}
+                        </div>
+                    {% endif %}
+
+                    <div class="location row mb-1">
+                        <div class="col-12 col-sm-3">Location:</div>
+                        <div class="col-12 col-sm-9 text-secondary">{{ report.location }}</div>
+                    </div>
+                    <div class="responsible-party row mb-1">
+                        <div class="col-12 col-sm-3">Responsible Party(s):</div>
+                        <div class="col-12 col-sm-9 text-secondary">{{ report.responsible_party }}</div>
+                    </div>
+                    <div class="responsible-party-contact row mb-3">
+                        <div class="col-12 col-sm-3">Responsible Party Contacts:</div>
+                        <div class="col-12 col-sm-9 text-secondary">{{ report.responsible_party_contact }}</div>
+                    </div>
+                </div>
+            </div>
         </div>
     {% endblock main %}
 {% endpartialdef %}

@@ -17,7 +17,6 @@
                 {% endfor %}
             </section>
             <div class="clear"></div>
-    
     </div>
 {% endpartialdef %}
 
@@ -25,7 +24,7 @@
     <div class="card mb-2">
         <div class="card-body">
             <a class="card-title h6 text-decoration-none" href="#" hx-get="{% url "report-details"  report.id %}" hx-target="#main" hx-swap="innerHTML" hx-push-url="true">
-                {{ description }}
+                {{ report.description }}
             </a>
             <div class="text-secondary mb-4">
                 <small><a class='text-secondary text-decoration-none' href="#">{{ report.subcategory }}</a> |</small>
@@ -33,9 +32,6 @@
                 <small>{{ report.status }}</small>
             </div>
 
-            <div class="media-files mb-5 d-flex">
-                {% include "partials.html#ImageGallery-partial" %}
-            </div>
             <div class="location row mb-1">
                 <div class="col-12 col-sm-3">Location:</div>
                 <div class="col-12 col-sm-9 text-secondary">{{ report.location }}</div>

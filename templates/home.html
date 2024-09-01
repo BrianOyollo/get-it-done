@@ -11,7 +11,7 @@
                 <div class="col-12 col-md-9">
                     {% if reports %}
                         {% for report in reports %}
-                            {% include "partials.html#ReportCard-partial" with description=report.description|truncatewords:35 %}
+                            {% include "partials.html#ReportCard-partial" %}
                         {% endfor %}
                     {% else %}
                         <div class="card mb-2">
