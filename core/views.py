@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.db import transaction
 from django.shortcuts import get_object_or_404
+from django.core.paginator import Paginator
 import time
 
 from .models import Report, ReportStatus, ReportFile, Subcategory, Category
@@ -11,19 +12,23 @@ def HomeView(request):
     #TODO: checkout select_related and prefetch_related for query optimization
 
     reports = Report.objects.all()
+    paginator = Paginator(reports, 15)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+
     subcategories = Subcategory.objects.all()
     categories = Category.objects.all()
     if request.htmx:
         # time.sleep(10)
         return render(request, 'home.html#HomePage-partial',{
-            'reports':reports,
+            'page_obj':page_obj,
             'all_reports_count': reports.count(),
             'categories':categories,
             'subcategories':subcategories,
         })
     else:
         return render(request, 'home.html', {
-            'reports':reports,
+            'page_obj':page_obj,
             'all_reports_count': reports.count(),
             'categories':categories,
             'subcategories':subcategories,

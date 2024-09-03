@@ -7,22 +7,9 @@
     {% block main %}
         <div id="homepage">
 
-            <div class="row">
-                <div class="col-12 col-md-9">
-                    {% if reports %}
-                        {% for report in reports %}
-                            {% include "partials.html#ReportCard-partial" %}
-                        {% endfor %}
-                    {% else %}
-                        <div class="card mb-2">
-                            <div class="card-body">
-                                <h6>0 reports found</h6>
-                            </div>
-                        </div>
-                    {% endif %}
-                    
-                </div>
-                <div class="col-0 col-md-3 d-none d-md-block">
+            <div class="row gy-3">
+                <button type="button" class="btn btn-outline-secondary mb-3" id="filters-btn">Show Filters</button>
+                <div class="col-12 d-none col-md-3 d-lg-grid" id="filters-section">           
                     <div class="bg-white p-4 mb-2">
                         <h6 class="text-center">Filter by category</h6>
                         <ul>
@@ -72,6 +59,63 @@
                         </ul>
                     </div>
                 </div>
+                <div class="col-12 col-lg-9">
+                    {% if page_obj %}
+                        {% for report in page_obj %}
+                            {% include "partials.html#ReportCard-partial" %}
+                        {% endfor %}
+                    {% else %}
+                        <div class="card mb-2">
+                            <div class="card-body">
+                                <h6>0 reports found</h6>
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination d-flex justify-content-center">
+                            {% if page_obj.has_previous %}
+                                {% if page_obj.previous_page_number != 1 %}
+                                    <li class="page-item">
+                                        <a class="page-link" href="#" hx-get="?page=1" hx-target="#main" hx-swap="innerHTML" hx-push-url="true">First</a>
+                                    </li>
+                                {% endif %}
+                                <li class="page-item">
+                                    <a class="page-link" href="#" 
+                                        hx-get="?page={{ page_obj.previous_page_number}}" hx-target="#main" hx-swap="innerHTML" hx-push-url="true">
+                                        {{ page_obj.previous_page_number}}
+                                    </a>
+                                </li>
+                            {% endif %}
+                            
+
+                            <li class="page-item">
+                                <a class="page-link active" href="#">
+                                    {{ page_obj.number}}
+                                </a>
+                            </li>
+
+                            {% if page_obj.has_next %}
+                                {% if page_obj.next_page_number != page_obj.paginator.num_pages  %}
+                                    <li class="page-item">
+                                        <a class="page-link" href="#" 
+                                            hx-get="?page={{ page_obj.next_page_number }}" hx-target="#main" hx-swap="innerHTML" hx-push-url="true">
+                                            {{ page_obj.next_page_number }}
+                                        </a>
+                                    </li>
+                                {% endif %}
+                                <li class="page-item">
+                                    <a class="page-link" href="#" 
+                                        hx-get="?page={{ page_obj.paginator.num_pages }}" hx-target="#main" hx-swap="innerHTML" hx-push-url="true">
+                                        Last
+                                    </a>
+                                </li>
+                            {% endif %}
+  
+                        </ul>
+                      </nav>
+                </div>
+                
             </div>
             
         </div>

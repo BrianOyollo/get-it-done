@@ -157,17 +157,17 @@ AWS_FILE_OVERWRITE = False
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-STORAGES = {
-    # media files
-    "default": {
-        "BACKEND": "storages.backends.s3.S3Storage",
-    },
+# STORAGES = {
+#     # media files
+#     "default": {
+#         "BACKEND": "storages.backends.s3.S3Storage",
+#     },
 
-    # static files
-    "staticfiles": {
-        "BACKEND": "storages.backends.s3.S3Storage",
-    },
-}
+#     # static files
+#     "staticfiles": {
+#         "BACKEND": "storages.backends.s3.S3Storage",
+#     },
+# }
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
