@@ -1,3 +1,12 @@
+function toggleFilters(){
+  alert("Hellow word!");
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+  let toggleFiltersButton = document.getElementById("filters-btn");
+  toggleFiltersButton.addEventListener("click", toggleFilters);
+});
+
 $(document).ready(function(){
     $('.image-popup-vertical-fit').magnificPopup({
         type: 'image',
@@ -23,5 +32,3 @@ $(document).ready(function(){
     });
 
 
-
-  

@@ -13,7 +13,7 @@ class NewReportForm(forms.Form):
     responsible_party_contact = forms.CharField(required=False, max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}))
     reporter_name = forms.CharField(required=False, max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}))
     reporter_contact = forms.CharField(required=False, max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}))
-    files = forms.FileField(widget=forms.FileInput(attrs={'accept': 'image/*'}), required=False)
+    files = forms.FileField(widget=forms.FileInput(attrs={'accept': 'image/*, video/*'}), required=False)
     latitude = forms.DecimalField(required=False, widget=forms.HiddenInput())
     longitude = forms.DecimalField(required=False, widget=forms.HiddenInput())
 
