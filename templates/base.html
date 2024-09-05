@@ -30,7 +30,7 @@
 
 
 </head>
-<body class="container bg-secondary-subtle">
+<body class="container-md bg-secondary-subtle">
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
         <a class="navbar-brand text-success fw-bold fs-4" href="#" hx-get="{% url "home" %}" hx-target="#main" hx-swap="innerHTML" hx-push-url="true">GET-IT-DONE</a>
@@ -64,7 +64,7 @@
         </div>
     </nav>
 
-    <div class="m-2 p-1" id="main">
+    <div class="mt-2" id="main">
         {% block main %}
         {% endblock main %}
     </div>

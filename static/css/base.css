@@ -21,6 +21,7 @@ a{
   width: 250px;
   height: 250px;
   object-fit: cover;
+  padding: 3px;
 }
 .mfp-bottom-bar,*{
    font-family: 'Abel', sans-serif;

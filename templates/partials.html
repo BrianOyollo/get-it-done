@@ -1,18 +1,30 @@
 {% load static %}
 {% load widget_tweaks %}
 {% load partials %}
+{% load custom_filters %}
 
 
 
 {% partialdef ImageGallery-partial %}
     <div class="d-flex flex-wrap justify-content-center">
         {% for file in report.files.all %}
+               
+            {% if file.file.url|is_video %}
+                <div class="video-container">
+                    <video width="300" height="250" controls>
+                        <source src="{{ file.file.url }}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            {% else %}
                 <div class="magnific-img">
                     <a class="image-popup-vertical-fit" href="{{ file.file.url }}">
                         <img src="{{ file.file.url }}" alt="{{ file.file.name }}" />
                         <i class="fa fa-search-plus" aria-hidden="true"></i>
                     </a>
                 </div>
+            {% endif %}
+                    
         {% endfor %}
     </div>
 {% endpartialdef %}
